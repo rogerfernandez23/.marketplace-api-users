@@ -22,10 +22,10 @@ export class UsersController {
     await this.usersService.create(createUserDto);
   }
 
-  @Get('/all')
+  @Get()
   @MessagePattern('findAll')
   async findAll() {
-    return { users: this.usersService.findAll() };
+    return { users: await this.usersService.findAll() };
   }
 
   @Get('/:id')

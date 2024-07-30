@@ -1,4 +1,9 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -32,21 +37,46 @@ export class UsersService {
 
   // Find all Users
   async findAll() {
+    // if (!user.admin) {
+    //   throw new UnauthorizedException(
+    //     'You are not authorized to access this resource',
+    //   );
+    // }
     return await this.usersRepository.find();
   }
 
   // Find One User
   async findOne(id: string) {
-    return await this.usersRepository.findOneBy({ id: id });
+    const userOne = await this.usersRepository.findOneBy({ id: id });
+
+    if (!userOne) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    return userOne;
   }
 
   // Edit User
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return await this.usersRepository.update(id, updateUserDto);
+    const updateUser = await this.usersRepository.findOneBy({ id: id });
+
+    if (!updateUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    await this.usersRepository.update(id, updateUserDto);
+
+    return await this.usersRepository.findOneBy({ id });
   }
 
   // Delete User
   async remove(id: string) {
+    const deleteUser = await this.usersRepository.findOneBy({ id: id });
+
+    if (!deleteUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
     return await this.usersRepository.delete(id);
   }
 }
