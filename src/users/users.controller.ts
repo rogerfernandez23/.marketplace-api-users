@@ -1,43 +1,48 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Users } from './entities/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
 @Controller('users')
 export class UsersController {
-  constructor(
-    private readonly usersService: UsersService,
-    @InjectRepository(Users)
-    private readonly usersRepository: Repository<Users>,
-  ) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
   @MessagePattern('createUser')
   async create(@Body() createUserDto: CreateUserDto) {
-    await this.usersRepository.save(createUserDto);
+    await this.usersService.create(createUserDto);
   }
 
-  @MessagePattern('findAllUsers')
-  findAll() {
-    return this.usersService.findAll();
+  @Get('/all')
+  @MessagePattern('findAll')
+  async findAll() {
+    return { users: this.usersService.findAll() };
   }
 
-  @MessagePattern('findOneUser')
-  findOne(@Payload() id: number) {
-    return this.usersService.findOne(id);
+  @Get('/:id')
+  @MessagePattern('')
+  async findOne(@Param('id') id: string) {
+    return await this.usersService.findOne(id);
   }
 
-  @MessagePattern('updateUser')
-  update(@Payload() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(updateUserDto.id, updateUserDto);
+  @Patch('/:id')
+  @MessagePattern('editUser')
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto);
   }
 
-  @MessagePattern('removeUser')
-  remove(@Payload() id: number) {
+  @Delete('/:id')
+  @MessagePattern('deleteUser')
+  remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
 }

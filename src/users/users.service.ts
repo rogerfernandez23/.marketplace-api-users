@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,23 +12,41 @@ export class UsersService {
     private readonly usersRepository: Repository<Users>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  // Created User
+  async create(createUserDto: CreateUserDto) {
+    const [isExist, documentValid] = await Promise.all([
+      this.usersRepository.findOneBy({ email: createUserDto.email }),
+      this.usersRepository.findOneBy({ document: createUserDto.document }),
+    ]);
+
+    if (isExist) {
+      throw new ConflictException('e-mail already exists in our database');
+    }
+
+    if (documentValid) {
+      throw new ConflictException('CPF already exists in our database');
+    }
+
+    return await this.usersRepository.save(createUserDto);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  // Find all Users
+  async findAll() {
+    return await this.usersRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  // Find One User
+  async findOne(id: string) {
+    return await this.usersRepository.findOneBy({ id: id });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  // Edit User
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return await this.usersRepository.update(id, updateUserDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  // Delete User
+  async remove(id: string) {
+    return await this.usersRepository.delete(id);
   }
 }
