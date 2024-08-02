@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Users } from 'src/users/entities/user.entity';
+import { Users } from 'src/modules/users/entities/user.entity';
 
 @Entity()
 export class Address {
