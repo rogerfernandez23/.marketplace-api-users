@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import * as bcrypt from 'bcrypt';
-import { Address } from 'src/address/entities/address.entity';
+import { Address } from 'src/modules/address/entities/address.entity';
 
 @Entity()
 export class Users {
@@ -24,15 +24,15 @@ export class Users {
   @IsNotEmpty()
   lastName: string;
 
-  @Column({ type: 'enum', enum: ['male', 'female', 'other'], nullable: false })
+  @Column({ type: 'enum', enum: ['male', 'female'], nullable: false })
   @IsNotEmpty()
   gender: string;
 
-  @Column({ type: 'date', nullable: false })
+  @Column({ nullable: false })
   @IsNotEmpty()
   birth: Date;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, unique: true })
   @IsNotEmpty()
   @Length(11)
   document: string;
@@ -41,7 +41,7 @@ export class Users {
   @IsNotEmpty()
   phone: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, unique: true })
   @IsEmail()
   @IsNotEmpty()
   email: string;
@@ -49,6 +49,9 @@ export class Users {
   @Column({ nullable: false })
   @IsNotEmpty()
   password: string;
+
+  @Column()
+  admin: boolean;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -67,8 +70,9 @@ export class Users {
   addresses: Address[];
 
   @BeforeInsert()
-  async passwordSet(password: string) {
+  async setPassword(password: string) {
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(password || this.password, salt);
+    return this.password;
   }
 }
