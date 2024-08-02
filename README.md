@@ -13,12 +13,12 @@
 
 # Rotas Administrativas
 
-- Listagem de Usuários
-- Atualização de Usuários
-- Exclusão de Usuários
+- Listagem de Usuários ✅
+- Atualização de Usuários ✅
+- Exclusão de Usuários ✅
 
 # Rotas Públicas
 
-- Cadastro de Usuários
+- Cadastro de Usuários ✅
 - Login e Logoff
 - Login Social (com Google)

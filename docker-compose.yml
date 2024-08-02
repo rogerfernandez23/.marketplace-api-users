@@ -1,5 +1,5 @@
 services:
-  marketplace_api_prod:
+  marketplace_api_development:
     build:
       context: .
       dockerfile: Dockerfile
