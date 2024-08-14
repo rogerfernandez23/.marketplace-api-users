@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -54,6 +55,10 @@ export class Address {
   })
   updatedAt: Date;
 
-  @ManyToOne(() => Users, (user) => user.addresses)
+  @ManyToOne(() => Users, (user) => user.id, {
+    nullable: true,
+    eager: true,
+  })
+  @JoinColumn({ name: 'user_id' })
   user: Users;
 }

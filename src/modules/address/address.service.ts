@@ -1,26 +1,28 @@
+import { AddressMapper } from './mapper/address.mapper';
+import { AddressRepository } from './repositories/address.repository';
 import { Injectable } from '@nestjs/common';
 import { CreateAddressDto } from './dto/create-address.dto';
-import { UpdateAddressDto } from './dto/update-address.dto';
+import { CepService } from './adapters/cep-service';
 
 @Injectable()
 export class AddressService {
-  create(createAddressDto: CreateAddressDto) {
-    return 'This action adds a new address';
+  constructor(
+    private addressRepository: AddressRepository,
+    private addressMapper: AddressMapper,
+    private cepService: CepService,
+  ) {}
+
+  async create(createAddressDto: CreateAddressDto) {
+    const addressCreate =
+      await this.addressMapper.toCreateAddress(createAddressDto);
+
+    const saveAddress =
+      await this.addressRepository.repository.save(addressCreate);
+
+    return await this.addressMapper.toCreateAddress(saveAddress);
   }
 
-  findAll() {
-    return `This action returns all address`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} address`;
-  }
-
-  update(id: number, updateAddressDto: UpdateAddressDto) {
-    return `This action updates a #${id} address`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} address`;
+  async validateCep(cep: string) {
+    return await this.cepService.cepValidate(cep);
   }
 }
