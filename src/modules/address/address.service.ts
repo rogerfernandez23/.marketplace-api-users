@@ -13,13 +13,15 @@ export class AddressService {
   ) {}
 
   async create(createAddressDto: CreateAddressDto) {
+    await this.validateCep(createAddressDto.postalCode);
+
     const addressCreate =
       await this.addressMapper.toCreateAddress(createAddressDto);
 
     const saveAddress =
       await this.addressRepository.repository.save(addressCreate);
 
-    return await this.addressMapper.toCreateAddress(saveAddress);
+    return await this.addressMapper.toResponseAddress(saveAddress);
   }
 
   async validateCep(cep: string) {

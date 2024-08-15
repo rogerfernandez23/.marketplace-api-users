@@ -1,3 +1,4 @@
+import { CepSearchResponseDto } from '../dto/cep-search.dto';
 import { AddressResponseDto } from '../dto/response-address.dto';
 import { Address } from '../entities/address.entity';
 import { CreateAddressDto } from './../dto/create-address.dto';

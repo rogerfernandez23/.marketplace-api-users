@@ -12,7 +12,9 @@ export class AddressController {
   }
 
   @Get()
-  async validateCep(@Body() cep: string) {
+  async validateCep(@Body() body: { cep: string }) {
+    const { cep } = body;
+
     return await this.addressService.validateCep(cep);
   }
 }
