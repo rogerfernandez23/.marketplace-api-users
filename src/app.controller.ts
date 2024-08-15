@@ -1,12 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { HateoasIndex } from './core/hateoas/hateoas-index';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private hateoas: HateoasIndex) {}
 
   @Get()
-  getHello(): string {
-    return 'Welcome to the Microservice Users -.marketplace';
+  index() {
+    return {
+      start: 'Welcome to the Microservice Users - Marketplace',
+      links: this.hateoas.getLinksHateoas(),
+    };
   }
 }
