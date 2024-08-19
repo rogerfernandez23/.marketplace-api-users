@@ -16,7 +16,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const userCreate = this.usersMapper.toCreateUser(createUserDto);
 
-    userCreate.password = await userCreate.setPassword(createUserDto.password);
+    // userCreate.password = await userCreate.setPassword(createUserDto.password);
 
     const userRegister = await this.usersRepository.repository.save(userCreate);
 

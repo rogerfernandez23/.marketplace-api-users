@@ -1,5 +1,5 @@
-import { Expose } from 'class-transformer';
-import { Users } from 'src/modules/users/entities/user.entity';
+import { Expose, Type } from 'class-transformer';
+import { UserResponseDto } from 'src/modules/users/dto/response-user.dto';
 
 export class AddressResponseDto {
   id: string;
@@ -21,5 +21,6 @@ export class AddressResponseDto {
   additionalInfo?: string;
 
   @Expose({ name: 'user_id' })
-  user: Users;
+  @Type(() => UserResponseDto)
+  user: UserResponseDto;
 }

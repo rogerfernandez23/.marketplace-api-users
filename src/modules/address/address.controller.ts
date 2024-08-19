@@ -1,6 +1,7 @@
 import { Post, Body, Controller, Get } from '@nestjs/common';
 import { AddressService } from './address.service';
 import { CreateAddressDto } from './dto/create-address.dto';
+import { instanceToPlain } from 'class-transformer';
 
 @Controller('address')
 export class AddressController {
@@ -12,6 +13,13 @@ export class AddressController {
   }
 
   @Get()
+  async findAll() {
+    const address = await this.addressService.findAll();
+
+    return instanceToPlain(address);
+  }
+
+  @Get('/validate')
   async validateCep(@Body() body: { cep: string }) {
     const { cep } = body;
 

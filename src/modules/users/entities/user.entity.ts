@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -66,7 +67,8 @@ export class Users {
   })
   updatedAt: Date;
 
-  @OneToMany(() => Address, (address) => address.user)
+  @OneToMany(() => Address, (address) => address.id)
+  @JoinColumn({ name: 'address_id' })
   addresses: Address[];
 
   @BeforeInsert()
