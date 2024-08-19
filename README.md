@@ -4,6 +4,8 @@
 
 # Funcionalidades
 
+- Validação de CEP ✅
+- Validação de CPF
 - Autenticação de Login e Senha
 - Autenticação de Dois Fatores (2FA)
 - Separação de Permissões
@@ -14,11 +16,13 @@
 # Rotas Administrativas
 
 - Listagem de Usuários ✅
-- Atualização de Usuários ✅
 - Exclusão de Usuários ✅
 
 # Rotas Públicas
 
 - Cadastro de Usuários ✅
+- Atualização de Usuários ✅
+- Cadastro de Endereços ✅
+- Atualização de Endereços
 - Login e Logoff
 - Login Social (com Google)
