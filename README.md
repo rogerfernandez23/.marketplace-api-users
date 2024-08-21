@@ -6,7 +6,7 @@
 
 - Validação de CEP ✅
 - Validação de CPF
-- Autenticação de Login e Senha
+- Autenticação de Login e Senha ✅
 - Autenticação de Dois Fatores (2FA)
 - Separação de Permissões
 - Recuperação de Senha
@@ -24,5 +24,5 @@
 - Atualização de Usuários ✅
 - Cadastro de Endereços ✅
 - Atualização de Endereços
-- Login e Logoff
+- Login e Logoff ✅
 - Login Social (com Google)

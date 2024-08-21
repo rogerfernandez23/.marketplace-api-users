@@ -1,5 +1,10 @@
 import { UsersRepository } from './../../users/repositories/users.repository';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
 import { ITokens } from './jwt-tokens.interface';
@@ -58,7 +63,6 @@ export class JwtTokens {
       return email;
     } catch (err) {
       if (err.name === 'JsonWebTokenError') {
-        throw new UnauthorizedException('invalid signature');
       }
 
       if (err.name === 'TokenExpiredError') {
@@ -66,6 +70,18 @@ export class JwtTokens {
       }
 
       throw new Error(err.name);
+    }
+  }
+
+  async desativateToken(refreshToken: string) {
+    const tokenExist = await this.tokenService.findOne(refreshToken);
+
+    if (!tokenExist) {
+      await this.tokenService.create(refreshToken);
+
+      throw new HttpException('Reset Content', HttpStatus.RESET_CONTENT);
+    } else {
+      throw new UnauthorizedException('invalid token');
     }
   }
 }

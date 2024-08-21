@@ -16,4 +16,9 @@ export class AuthController {
   newAuthenticate(@Request() req) {
     return this.authService.newAuthenticate(req);
   }
+
+  @Post('logout')
+  logout(@Request() req) {
+    return this.authService.logout(req);
+  }
 }

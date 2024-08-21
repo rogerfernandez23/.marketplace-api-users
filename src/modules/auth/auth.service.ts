@@ -36,4 +36,10 @@ export class AuthService {
 
     return this.jwtTokens.generatedTokens(payload);
   }
+
+  async logout(req: Request) {
+    const refreshToken = req.body.refresh;
+
+    return this.jwtTokens.desativateToken(refreshToken);
+  }
 }
