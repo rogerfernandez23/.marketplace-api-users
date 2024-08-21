@@ -5,6 +5,7 @@ import { UserAuthDto } from './dto/user-auth.dto';
 import { ITokens } from './strategies/jwt-tokens.interface';
 import * as bcrypt from 'bcrypt';
 import { JwtPayload } from './strategies/jwt-payload.interface';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -27,5 +28,12 @@ export class AuthService {
     } else {
       throw new UnauthorizedException('user or password incorrect!');
     }
+  }
+
+  async newAuthenticate(req: Request) {
+    const email = await this.jwtTokens.validateToken(req);
+    const payload: JwtPayload = { email };
+
+    return this.jwtTokens.generatedTokens(payload);
   }
 }

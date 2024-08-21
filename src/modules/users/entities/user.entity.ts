@@ -38,7 +38,7 @@ export class Users {
   @Length(11)
   document: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: () => "'1970-01-01 00:00:00'" })
   @IsNotEmpty()
   phone: string;
 
