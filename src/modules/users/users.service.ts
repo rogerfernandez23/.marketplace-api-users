@@ -1,3 +1,5 @@
+import { JwtTokens } from './../auth/strategies/jwt-tokens.';
+import { JwtPayload } from './../auth/strategies/jwt-payload.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,17 +12,23 @@ export class UsersService {
   constructor(
     private usersRepository: UsersRepository,
     private usersMapper: UsersMapper,
+    private jwtTokens: JwtTokens,
   ) {}
 
   // Created User
   async create(createUserDto: CreateUserDto) {
     const userCreate = this.usersMapper.toCreateUser(createUserDto);
 
-    // userCreate.password = await userCreate.setPassword(createUserDto.password);
-
     const userRegister = await this.usersRepository.repository.save(userCreate);
 
-    return await this.usersMapper.toResponseUser(userRegister);
+    const userToRegister =
+      this.usersMapper.toResponseRegisterUser(userRegister);
+
+    const { email } = userToRegister;
+    const payload: JwtPayload = { email };
+    userToRegister.token = await this.jwtTokens.generatedTokens(payload);
+
+    return userToRegister;
   }
 
   // Find all Users

@@ -2,6 +2,7 @@ import { UserResponseDto } from './../dto/response-user.dto';
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { Users } from '../entities/user.entity';
+import { UserRegisterResponseDto } from '../dto/register-user.dto';
 
 @Injectable()
 export class UsersMapper {
@@ -23,6 +24,22 @@ export class UsersMapper {
 
   toResponseUser(user: Users): UserResponseDto {
     const newUser = new UserResponseDto();
+
+    newUser.id = user.id;
+    newUser.firstName = user.firstName;
+    newUser.lastName = user.lastName;
+    newUser.gender = user.gender;
+    newUser.birth = user.birth;
+    newUser.document = user.document;
+    newUser.phone = user.phone;
+    newUser.email = user.email;
+    newUser.admin = user.admin;
+
+    return newUser;
+  }
+
+  toResponseRegisterUser(user: Users): UserRegisterResponseDto {
+    const newUser = new UserRegisterResponseDto();
 
     newUser.id = user.id;
     newUser.firstName = user.firstName;
