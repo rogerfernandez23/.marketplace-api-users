@@ -1,4 +1,3 @@
-import { CepSearchResponseDto } from '../dto/cep-search.dto';
 import { AddressResponseDto } from '../dto/response-address.dto';
 import { Address } from '../entities/address.entity';
 import { CreateAddressDto } from './../dto/create-address.dto';
@@ -31,7 +30,7 @@ export class AddressMapper {
     newAddress.postalCode = address.postalCode;
     newAddress.complement = address.complement;
     newAddress.additionalInfo = address.additionalInfo;
-    newAddress.user = address.user;
+    newAddress.user = address.user.id;
 
     return newAddress;
   }

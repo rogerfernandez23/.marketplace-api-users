@@ -6,6 +6,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './repositories/users.repository';
 import { UsersMapper } from './mapper/users.mapper';
 import { UserResponseDto } from './dto/response-user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -64,8 +65,6 @@ export class UsersService {
     const userUpdate = await this.usersRepository.repository.findOneBy({ id });
 
     return this.usersMapper.toResponseUser(userUpdate);
-
-    //
   }
 
   // Delete User

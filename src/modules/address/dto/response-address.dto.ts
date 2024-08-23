@@ -22,5 +22,5 @@ export class AddressResponseDto {
 
   @Expose({ name: 'user_id' })
   @Type(() => UserResponseDto)
-  user: UserResponseDto;
+  user: string;
 }

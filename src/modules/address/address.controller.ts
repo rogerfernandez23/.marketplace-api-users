@@ -20,14 +20,14 @@ export class AddressController {
     return instanceToPlain(address);
   }
 
-  @Get('/validate')
+  @Get('validate')
   async validateCep(@Body() body: { cep: string }) {
     const { cep } = body;
 
     return await this.addressService.validateCep(cep);
   }
 
-  @Patch('/:id')
+  @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.addressService.update(id, updateUserDto);
   }
