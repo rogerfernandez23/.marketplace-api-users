@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import * as bcrypt from 'bcrypt';
-import { Address } from 'src/modules/address/entities/address.entity';
+import { Address } from '../../address/entities/address.entity';
 
 @Entity()
 export class Users {
@@ -76,5 +76,23 @@ export class Users {
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(password || this.password, salt);
     return this.password;
+  }
+
+  // Optional constructor to initialize the Users entity with partial data
+
+  constructor(user?: Partial<Users>) {
+    this.id = user?.id;
+    this.firstName = user?.firstName;
+    this.lastName = user?.lastName;
+    this.gender = user?.gender;
+    this.birth = user?.birth;
+    this.document = user?.document;
+    this.phone = user?.phone;
+    this.email = user?.email;
+    this.password = user?.password;
+    this.admin = user?.admin;
+    this.createdAt = user?.createdAt;
+    this.updatedAt = user?.updatedAt;
+    this.addresses = user?.addresses;
   }
 }

@@ -1,4 +1,4 @@
-import { JwtTokens } from './strategies/jwt-tokens.';
+import { JwtTokens } from './strategies/jwt-tokens';
 import { UsersRepository } from './../users/repositories/users.repository';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserAuthDto } from './dto/user-auth.dto';

@@ -1,4 +1,4 @@
-import { UsersRepository } from './../../users/repositories/users.repository';
+import { UsersRepository } from '../../users/repositories/users.repository';
 import {
   HttpException,
   HttpStatus,
@@ -10,7 +10,7 @@ import { JwtPayload } from './jwt-payload.interface';
 import { ITokens } from './jwt-tokens.interface';
 import { config } from 'dotenv';
 import { Request } from 'express';
-import { TokenService } from 'src/modules/tokens/token.service';
+import { TokenService } from '../../tokens/token.service';
 config();
 
 @Injectable()
@@ -62,14 +62,16 @@ export class JwtTokens {
 
       return email;
     } catch (err) {
-      if (err.name === 'JsonWebTokenError') {
+      if (err instanceof Error) {
+        if (err.name === 'JsonWebTokenError') {
+        }
+
+        if (err.name === 'TokenExpiredError') {
+          throw new UnauthorizedException('expired token');
+        }
       }
 
-      if (err.name === 'TokenExpiredError') {
-        throw new UnauthorizedException('expired token');
-      }
-
-      throw new Error(err.name);
+      throw err;
     }
   }
 

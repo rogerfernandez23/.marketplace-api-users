@@ -6,7 +6,7 @@ import { Address } from './entities/address.entity';
 import { Users } from '../users/entities/user.entity';
 import { AddressMapper } from './mapper/address.mapper';
 import { AddressRepository } from './repositories/address.repository';
-import { CepSearchService } from 'src/core/cep-search.service';
+import { CepSearchService } from '../../core/cep-search.service';
 import { CepService } from './adapters/cep-service';
 
 @Module({

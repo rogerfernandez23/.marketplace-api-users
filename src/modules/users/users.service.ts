@@ -1,4 +1,4 @@
-import { JwtTokens } from './../auth/strategies/jwt-tokens.';
+import { JwtTokens } from './../auth/strategies/jwt-tokens';
 import { JwtPayload } from './../auth/strategies/jwt-payload.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -6,7 +6,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './repositories/users.repository';
 import { UsersMapper } from './mapper/users.mapper';
 import { UserResponseDto } from './dto/response-user.dto';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {

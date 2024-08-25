@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { HateoasData } from './hateoas-data';
 import { HateoasLinks } from './hateoas-interface';
-import { UsersController } from 'src/modules/users/users.controller';
-import { AddressController } from 'src/modules/address/address.controller';
-import { MeController } from 'src/modules/me/me.controller';
-import { AuthController } from 'src/modules/auth/auth.controller';
+import { UsersController } from '../../modules/users/users.controller';
+import { AddressController } from '../../modules/address/address.controller';
+import { MeController } from '../../modules/me/me.controller';
+import { AuthController } from '../../modules/auth/auth.controller';
 
 @Injectable()
 export class HateoasIndex extends HateoasData {

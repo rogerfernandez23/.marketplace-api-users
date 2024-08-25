@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import { UserResponseDto } from 'src/modules/users/dto/response-user.dto';
+import { UserResponseDto } from '../../../modules/users/dto/response-user.dto';
 
 export class AddressResponseDto {
   id: string;

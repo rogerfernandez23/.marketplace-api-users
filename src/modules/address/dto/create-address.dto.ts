@@ -1,7 +1,7 @@
 import { Expose } from 'class-transformer';
 import { IsIn, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
-import { BRAZILIAN_STATES } from 'src/configs/constants-states';
-import { Users } from 'src/modules/users/entities/user.entity';
+import { BRAZILIAN_STATES } from '../../../configs/constants-states';
+import { Users } from '../../../modules/users/entities/user.entity';
 export class CreateAddressDto {
   id: string;
 

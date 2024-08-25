@@ -8,9 +8,9 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { AgeValidate } from 'src/core/validations/validate-age';
-import { ValidateCPF } from 'src/core/validations/validate-cpf';
-import { MailValidate } from 'src/core/validations/validate-email';
+import { AgeValidate } from '../../../core/validations/validate-age';
+import { ValidateCPF } from '../../../core/validations/validate-cpf';
+import { MailValidate } from '../../../core/validations/validate-email';
 
 export class UpdateUserDto {
   id?: string;

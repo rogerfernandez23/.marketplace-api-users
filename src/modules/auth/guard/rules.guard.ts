@@ -1,6 +1,6 @@
 import { Reflector } from '@nestjs/core';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import TypeUser from 'src/modules/users/enum/user-type.enum';
+import TypeUser from '../../../modules/users/enum/user-type.enum';
 import { RULES_KEY } from '../decorators/rules.decorator';
 
 @Injectable()
