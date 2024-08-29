@@ -5,13 +5,20 @@
 # Funcionalidades
 
 - Validação de CEP ✅
-- Validação de CPF
+- Validação de CPF ✅
 - Autenticação de Login e Senha ✅
 - Autenticação de Dois Fatores (2FA)
 - Separação de Permissões
 - Recuperação de Senha
-- Alteração de Senha
+- Alteração de Senha ✅
 - Gerenciamento de Sessões
+- Testes Unitários nos Módulos {
+  - Users ✅
+  - Address
+  - Auth
+  - Token
+  - Me
+    }
 
 # Rotas Administrativas
 
@@ -23,6 +30,5 @@
 - Cadastro de Usuários ✅
 - Atualização de Usuários ✅
 - Cadastro de Endereços ✅
-- Atualização de Endereços
+- Atualização de Endereços ✅
 - Login e Logoff ✅
-- Login Social (com Google)
